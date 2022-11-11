@@ -16,8 +16,10 @@ public class MovieSearcher
 {
     public List<Movie> search(List<Movie> searchBase, String query)
     {
-        //TODO Movie search
-        return null;
+        return !query.isEmpty() ?
+                searchBase.stream().filter((movie) ->
+                        movie.getTitle().toLowerCase().contains(query)).toList()
+                : searchBase;
     }
     
 }

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import movierecsys.be.Movie;
+import movierecsys.bll.OwsLogicFacade;
 
 /**
  * @author pgn
@@ -39,8 +40,7 @@ public class MovieDAO {
                     Movie mov = stringArrayToMovie(line);
                     allMovies.add(mov);
                 } catch (Exception ex) {
-                    //Do nothing we simply do not accept malformed lines of data.
-                    //In a perfect world you should at least log the incident.
+                    ex.printStackTrace();
                 }
             }
         }
@@ -65,8 +65,7 @@ public class MovieDAO {
                 title += "," + arrMovie[i];
             }
         }
-        Movie mov = new Movie(id, year, title);
-        return mov;
+        return new Movie(id, year, title);
     }
 
     /**

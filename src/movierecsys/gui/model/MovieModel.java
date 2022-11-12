@@ -20,7 +20,7 @@ public class MovieModel {
         return movieList = FXCollections.observableArrayList(fetchedMovies);
     }
 
-    public void setMovieList(ObservableList<Movie> movieList) {
-        this.movieList = movieList;
-    }
+//    public void setMovieList(ObservableList<Movie> movieList) {
+//        this.movieList = movieList;
+//    }
 }

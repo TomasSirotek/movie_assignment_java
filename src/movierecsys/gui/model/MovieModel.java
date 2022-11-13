@@ -23,4 +23,8 @@ public class MovieModel {
     public void setMovieList(ObservableList<Movie> movieList) {
         this.movieList = movieList;
     }
+
+    public void setMovieList(ObservableList<Movie> movieList) {
+        this.movieList = movieList;
+    }
 }

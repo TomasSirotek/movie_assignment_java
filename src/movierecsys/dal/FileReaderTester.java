@@ -33,13 +33,16 @@ public class FileReaderTester
      */
     public static void main(String[] args) throws IOException
     {
-        MovieDAO movieDao = new MovieDAO();
+        // FETCHING ALL MOVIES
+        IMovieDAO movieDao = new MovieDAO();
         List<Movie> fetchedMovies = movieDao.getAllMovies();
         for (Movie allMov : fetchedMovies)
         {
             System.out.println(allMov.getTitle());
         }
         System.out.println("Movie count: " + fetchedMovies.size());
+
+        // CREATING MOVIES
     }
 
    

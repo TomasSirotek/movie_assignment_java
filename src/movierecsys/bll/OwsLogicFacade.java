@@ -5,6 +5,7 @@
  */
 package movierecsys.bll;
 
+import java.io.IOException;
 import java.util.List;
 import movierecsys.be.Movie;
 import movierecsys.be.Rating;
@@ -28,7 +29,7 @@ public interface OwsLogicFacade
      * Gets a list of all movies sorted by their rating.
      * @return A list of movies.
      */
-    List<Movie> getAllTimeTopRatedMovies();
+    List<Movie> getAllTimeTopRatedMovies() throws IOException;
 
     /**
      * Gets a list of movies recommended for the given user.

@@ -19,7 +19,7 @@ import movierecsys.bll.OwsLogicFacade;
 /**
  * @author pgn
  */
-public class MovieDAO {
+public class MovieDAO implements IMovieDAO{
 
     private static final String MOVIE_SOURCE = "data/movie_titles.txt";
 

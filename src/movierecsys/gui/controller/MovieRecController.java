@@ -5,6 +5,7 @@
  */
 package movierecsys.gui.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -38,8 +39,17 @@ public class MovieRecController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        try {
+            this.movieModel = new MovieModel();
+            setMovieListView();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
+    }
 
+    private void setMovieListView() throws IOException {
+        lstMovies.setItems(movieModel.getMovieList());
     }
 
 }

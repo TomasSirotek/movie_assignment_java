@@ -3,18 +3,28 @@ package movierecsys.bll;
 import movierecsys.be.Movie;
 import movierecsys.be.Rating;
 import movierecsys.be.User;
+import movierecsys.dal.IMovieDAO;
+import movierecsys.dal.MovieDAO;
 
+
+import java.io.IOException;
 import java.util.List;
 
 public class LogicManager implements OwsLogicFacade{
-    @Override
-    public List<Rating> getRecommendedMovies(User user) {
-        return null;
+
+    private final IMovieDAO movieDAO;
+    public LogicManager() throws Exception{
+        this.movieDAO = new MovieDAO();
     }
 
     @Override
-    public List<Movie> getAllTimeTopRatedMovies() {
-        return null;
+    public List<Rating> getRecommendedMovies(User user) {
+        return List.of();
+    }
+
+    @Override
+    public List<Movie> getAllTimeTopRatedMovies() throws IOException {
+        return movieDAO.getAllMovies();
     }
 
     @Override

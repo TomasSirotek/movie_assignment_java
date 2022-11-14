@@ -3,20 +3,21 @@ package movierecsys.gui.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import movierecsys.be.Movie;
+import movierecsys.bll.LogicManager;
 import movierecsys.bll.OwsLogicFacade;
 
 import java.util.List;
 
 public class MovieModel {
-    private OwsLogicFacade logicFacade;
+    private LogicManager logicManager;
     private ObservableList<Movie> movieList;
 
-    private MovieModel(OwsLogicFacade logicFacade){
-        this.logicFacade = logicFacade;
+    private MovieModel(LogicManager logicFacade){
+        this.logicManager = logicFacade;
     }
 
     public ObservableList<Movie> getMovieList() {
-        List<Movie> fetchedMovies = logicFacade.getAllTimeTopRatedMovies();
+        List<Movie> fetchedMovies = logicManager.getAllTimeTopRatedMovies();
         return movieList = FXCollections.observableArrayList(fetchedMovies);
     }
 

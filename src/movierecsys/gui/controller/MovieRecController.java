@@ -21,7 +21,6 @@ import movierecsys.gui.model.MovieModel;
  */
 public class MovieRecController implements Initializable
 {
-
     /**
      * The TextField containing the URL of the targeted website.
      */
@@ -47,7 +46,6 @@ public class MovieRecController implements Initializable
         }
 
     }
-
     private void setMovieListView() throws IOException {
         lstMovies.setItems(movieModel.getMovieList());
     }

@@ -43,6 +43,20 @@ public class FileReaderTester
         System.out.println("Movie count: " + fetchedMovies.size());
 
         // CREATING MOVIES
+
+        List<Movie> fetchedMovies2 = movieDao.getAllMovies();
+        for (Movie allMov : fetchedMovies2)
+        {
+            System.out.println(allMov.getTitle());
+        }
+        System.out.println("Movie count: " + fetchedMovies2.size());
+
+        List<Movie> fetchedMovies3 = movieDao.getAllMovies();
+        for (Movie allMov : fetchedMovies2)
+        {
+            System.out.println(allMov.getTitle());
+        }
+        System.out.println("Movie count: " + fetchedMovies2.size());
     }
 
    

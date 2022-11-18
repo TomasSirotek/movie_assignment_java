@@ -43,14 +43,8 @@ public class FileReaderTester
         System.out.println("Movie count: " + fetchedMovies.size());
 
         // CREATING MOVIES
-
-        List<Movie> fetchedMovies2 = movieDao.getAllMovies();
-        for (Movie allMov : fetchedMovies2)
-        {
-            System.out.println(allMov.getTitle());
-        }
-        System.out.println("Movie count: " + fetchedMovies2.size());
-
+        Movie createdMovie = movieDao.createMovie(3400,"Picovinka 2 ");
+        System.out.println(createdMovie.getTitle() + " " + createdMovie.getYear());
     }
 
    

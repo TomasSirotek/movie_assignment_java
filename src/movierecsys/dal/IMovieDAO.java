@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface IMovieDAO {
     List<Movie> getAllMovies() throws FileNotFoundException, IOException;
+
+    Movie createMovie(int releaseYear, String title) throws IOException;
 }

@@ -10,11 +10,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import movierecsys.be.Movie;
 import movierecsys.bll.OwsLogicFacade;
+
+import static java.nio.file.StandardOpenOption.APPEND;
 
 /**
  * @author pgn
@@ -37,7 +44,7 @@ public class MovieDAO implements IMovieDAO{
             String line;
             while ((line = reader.readLine()) != null) {
                 try {
-                    Movie mov = stringArrayToMovie(line);
+                    Movie mov = stringToMovieObject(line);
                     allMovies.add(mov);
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -54,7 +61,7 @@ public class MovieDAO implements IMovieDAO{
      * @return
      * @throws NumberFormatException
      */
-    private Movie stringArrayToMovie(String t) {
+    private Movie stringToMovieObject(String t) {
         String[] arrMovie = t.split(",");
 
         int id = Integer.parseInt(arrMovie[0]);
@@ -68,6 +75,18 @@ public class MovieDAO implements IMovieDAO{
         return new Movie(id, year, title);
     }
 
+    private int getNextId() throws IOException {
+        List<Movie> movies = getAllMovies();
+        int highestId = 0;
+        for(Movie movie : movies){
+            if(highestId < movie.getId())
+                highestId = movie.getId();
+        }
+        return highestId + 1;
+    }
+
+
+
     /**
      * Creates a movie in the persistence storage.
      *
@@ -76,9 +95,17 @@ public class MovieDAO implements IMovieDAO{
      * @return The object representation of the movie added to the persistence
      * storage.
      */
-    private Movie createMovie(int releaseYear, String title) {
-        //TODO Create movie.
-        return null;
+    public Movie createMovie(int releaseYear, String title) throws IOException {
+        int id = getNextId();
+        try {
+            Files.writeString(
+                    Path.of(MOVIE_SOURCE),
+                    id + "," + releaseYear + "," + title + "\n",
+                    APPEND);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return new Movie(id, releaseYear,title);
     }
 
     /**
@@ -86,7 +113,7 @@ public class MovieDAO implements IMovieDAO{
      *
      * @param movie The movie to delete.
      */
-    private void deleteMovie(Movie movie) {
+    public void deleteMovie(Movie movie) {
         //TODO Delete movie
     }
 
@@ -96,7 +123,7 @@ public class MovieDAO implements IMovieDAO{
      *
      * @param movie The updated movie.
      */
-    private void updateMovie(Movie movie) {
+    public void updateMovie(Movie movie) {
         //TODO Update movies
     }
 
@@ -106,7 +133,7 @@ public class MovieDAO implements IMovieDAO{
      * @param id ID of the movie.
      * @return A Movie object.
      */
-    private Movie getMovie(int id) {
+    public Movie getMovie(int id) {
         //TODO Get one Movie
         return null;
     }

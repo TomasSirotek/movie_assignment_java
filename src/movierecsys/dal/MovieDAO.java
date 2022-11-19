@@ -75,6 +75,11 @@ public class MovieDAO implements IMovieDAO{
         return new Movie(id, year, title);
     }
 
+    /**
+     *
+     * @return highestId + 1 into the file ;
+     * @throws IOException
+     */
     private int getNextId() throws IOException {
         List<Movie> movies = getAllMovies();
         int highestId = 0;
@@ -107,14 +112,28 @@ public class MovieDAO implements IMovieDAO{
         }
         return new Movie(id, releaseYear,title);
     }
-
     /**
      * Deletes a movie from the persistence storage.
      *
      * @param movie The movie to delete.
      */
-    public void deleteMovie(Movie movie) {
-        //TODO Delete movie
+    public void deleteMovie(Movie movie)  {
+        try {
+            List<Movie> movies = getAllMovies();
+
+            String movieString  = "";
+            for(Movie m : movies){
+                if(m.getId() != movie.getId()){
+                    movieString += m.getId() + "," +
+                            m.getYear() + "," +
+                            m.getTitle() + "\n";
+                }
+            }
+            Files.writeString(Path.of(MOVIE_SOURCE),movieString);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

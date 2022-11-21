@@ -5,8 +5,6 @@ import javafx.collections.ObservableList;
 import movierecsys.be.Movie;
 import movierecsys.bll.LogicManager;
 
-import java.io.IOException;
-import java.util.List;
 
 public class MovieModel {
     private final LogicManager logicManager;

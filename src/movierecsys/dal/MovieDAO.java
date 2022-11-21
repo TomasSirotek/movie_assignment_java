@@ -26,7 +26,7 @@ import static java.nio.file.StandardOpenOption.APPEND;
 /**
  * @author pgn
  */
-public class MovieDAO implements IMovieDAO{
+public class MovieDAO implements IMovieDAO {
 
     private static final String MOVIE_SOURCE = "data/movie_titles.txt";
 
@@ -49,8 +49,6 @@ public class MovieDAO implements IMovieDAO{
                 } catch (Exception ex) {
                 }
             }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -79,20 +77,17 @@ public class MovieDAO implements IMovieDAO{
     }
 
     /**
-     *
      * @return highestId + 1 into the file ;
-     * @throws IOException
      */
-    private int getNextId() throws IOException {
+    private int getNextId() {
         List<Movie> movies = getAllMovies();
         int highestId = 0;
-        for(Movie movie : movies){
-            if(highestId < movie.getId())
+        for (Movie movie : movies) {
+            if (highestId < movie.getId())
                 highestId = movie.getId();
         }
         return highestId + 1;
     }
-
 
 
     /**
@@ -103,7 +98,7 @@ public class MovieDAO implements IMovieDAO{
      * @return The object representation of the movie added to the persistence
      * storage.
      */
-    public Movie createMovie(int releaseYear, String title) throws IOException {
+    public Movie createMovie(int releaseYear, String title) {
         int id = getNextId();
         try {
             Files.writeString(
@@ -113,26 +108,27 @@ public class MovieDAO implements IMovieDAO{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return new Movie(id, releaseYear,title);
+        return new Movie(id, releaseYear, title);
     }
+
     /**
      * Deletes a movie from the persistence storage.
      *
      * @param movie The movie to delete.
      */
-    public void deleteMovie(Movie movie)  {
+    public void deleteMovie(Movie movie) {
         try {
             List<Movie> movies = getAllMovies();
 
-            String movieString  = "";
-            for(Movie m : movies){
-                if(m.getId() != movie.getId()){
+            String movieString = "";
+            for (Movie m : movies) {
+                if (m.getId() != movie.getId()) {
                     movieString += m.getId() + "," +
                             m.getYear() + "," +
                             m.getTitle() + "\n";
                 }
             }
-            Files.writeString(Path.of(MOVIE_SOURCE),movieString);
+            Files.writeString(Path.of(MOVIE_SOURCE), movieString);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -149,9 +145,9 @@ public class MovieDAO implements IMovieDAO{
         try {
             List<Movie> movies = getAllMovies();
 
-            String movieString  = "";
-            for(Movie m : movies){
-                if(m.getId() == movie.getId()){
+            String movieString = "";
+            for (Movie m : movies) {
+                if (m.getId() == movie.getId()) {
                     m = movie;
                 }
                 movieString += m.getId() + "," +
@@ -159,7 +155,7 @@ public class MovieDAO implements IMovieDAO{
                         m.getTitle() + "\n";
             }
 
-            Files.writeString(Path.of(MOVIE_SOURCE),movieString);
+            Files.writeString(Path.of(MOVIE_SOURCE), movieString);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -173,7 +169,19 @@ public class MovieDAO implements IMovieDAO{
      * @return A Movie object.
      */
     public Movie getMovie(int id) {
-        //TODO Get one Movie
+        try {
+            List<String> lines = Files.readAllLines(Path.of(MOVIE_SOURCE));
+            for (String line : lines) {
+                if (line != null) {
+                    Movie currentMovie = stringToMovieObject(line);
+                    if (currentMovie.getId() == id) {
+                        return currentMovie;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return null;
     }
 

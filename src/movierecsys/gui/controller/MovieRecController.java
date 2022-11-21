@@ -41,7 +41,6 @@ public class MovieRecController implements Initializable
             this.movieModel = new MovieModel();
             setMovieListView();
             movieModel.fetchAllMovies();
-
     }
     private void setMovieListView()  {
         lstMovies.setItems(movieModel.getMovieList());

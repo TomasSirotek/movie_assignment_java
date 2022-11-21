@@ -34,9 +34,8 @@ public class MovieDAO implements IMovieDAO{
      * Gets a list of all movies in the persistence storage.
      *
      * @return List of movies.
-     * @throws java.io.FileNotFoundException
      */
-    public List<Movie> getAllMovies() throws FileNotFoundException, IOException {
+    public List<Movie> getAllMovies() {
         List<Movie> allMovies = new ArrayList<>();
         File file = new File(MOVIE_SOURCE);
 
@@ -44,12 +43,16 @@ public class MovieDAO implements IMovieDAO{
             String line;
             while ((line = reader.readLine()) != null) {
                 try {
+
                     Movie mov = stringToMovieObject(line);
                     allMovies.add(mov);
                 } catch (Exception ex) {
-                    ex.printStackTrace();
                 }
             }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         return allMovies;
     }
@@ -143,7 +146,24 @@ public class MovieDAO implements IMovieDAO{
      * @param movie The updated movie.
      */
     public void updateMovie(Movie movie) {
-        //TODO Update movies
+        try {
+            List<Movie> movies = getAllMovies();
+
+            String movieString  = "";
+            for(Movie m : movies){
+                if(m.getId() == movie.getId()){
+                    m = movie;
+                }
+                movieString += m.getId() + "," +
+                        m.getYear() + "," +
+                        m.getTitle() + "\n";
+            }
+
+            Files.writeString(Path.of(MOVIE_SOURCE),movieString);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

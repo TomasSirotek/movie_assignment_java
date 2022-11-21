@@ -38,15 +38,12 @@ public class MovieRecController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        try {
             this.movieModel = new MovieModel();
             setMovieListView();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+            movieModel.fetchAllMovies();
 
     }
-    private void setMovieListView() throws IOException {
+    private void setMovieListView()  {
         lstMovies.setItems(movieModel.getMovieList());
     }
 

@@ -17,6 +17,12 @@ import movierecsys.be.User;
  */
 public interface OwsLogicFacade
 {
+    /**
+     * Gets a list of ratings given by the current user.
+     * @return Users ratings.
+     */
+
+    List<Movie> getAllMovies();
 
     /**
      * Gets a list of ratings given by the current user.
@@ -29,7 +35,7 @@ public interface OwsLogicFacade
      * Gets a list of all movies sorted by their rating.
      * @return A list of movies.
      */
-    List<Movie> getAllTimeTopRatedMovies() throws IOException;
+    List<Movie> getAllTimeTopRatedMovies();
 
     /**
      * Gets a list of movies recommended for the given user.

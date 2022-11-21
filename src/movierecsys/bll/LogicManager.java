@@ -13,17 +13,21 @@ import java.util.List;
 public class LogicManager implements OwsLogicFacade{
 
     private final IMovieDAO movieDAO;
-    public LogicManager() throws Exception{
+    public LogicManager() {
         this.movieDAO = new MovieDAO();
     }
 
+    @Override
+    public List<Movie> getAllMovies() {
+        return movieDAO.getAllMovies();
+    }
     @Override
     public List<Rating> getRecommendedMovies(User user) {
         return List.of();
     }
 
     @Override
-    public List<Movie> getAllTimeTopRatedMovies() throws IOException {
+    public List<Movie> getAllTimeTopRatedMovies(){
         return movieDAO.getAllMovies();
     }
 

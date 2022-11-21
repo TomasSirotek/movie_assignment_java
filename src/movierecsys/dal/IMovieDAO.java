@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface IMovieDAO {
-    List<Movie> getAllMovies() throws FileNotFoundException, IOException;
+    List<Movie> getAllMovies();
 
     Movie createMovie(int releaseYear, String title) throws IOException;
 }

@@ -10,20 +10,20 @@ import java.util.List;
 
 public class MovieModel {
     private final LogicManager logicManager;
-    private ObservableList<Movie> movieList;
+    private final ObservableList<Movie> movieList;
 
-    public MovieModel() throws Exception {
+    public MovieModel() {
         this.logicManager = new LogicManager();
+        movieList = FXCollections.observableArrayList();
     }
 
-    public ObservableList<Movie> getMovieList() throws IOException {
-        List<Movie> fetchedMovies = logicManager.getAllTimeTopRatedMovies();
-        return movieList = FXCollections.observableArrayList(fetchedMovies);
+    public void fetchAllMovies(){
+        movieList.clear();
+        movieList.addAll(logicManager.getAllMovies());
     }
 
-    public void setMovieList(ObservableList<Movie> movieList) {
-        this.movieList = movieList;
+    public ObservableList<Movie> getMovieList() {
+        return movieList;
     }
-    
-    
+
 }

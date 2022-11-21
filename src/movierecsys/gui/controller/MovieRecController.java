@@ -33,12 +33,11 @@ public class MovieRecController implements Initializable
     @FXML
     private ListView<Movie> lstMovies;
 
-    private MovieModel movieModel;
+    private MovieModel movieModel = new MovieModel();
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-            this.movieModel = new MovieModel();
             setMovieListView();
             movieModel.fetchAllMovies();
     }

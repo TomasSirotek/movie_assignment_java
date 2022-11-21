@@ -12,9 +12,9 @@ package movierecsys.bll.exception;
 public class MovieRecSysException extends Exception
 {
 
-    public MovieRecSysException(String message)
+    public MovieRecSysException(String message,Throwable cause)
     {
-        super(message);
+        super(message,cause);
     }
     
 }

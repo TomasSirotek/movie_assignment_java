@@ -67,7 +67,6 @@ public class UserDAO
         }
         return new User(id, name);
     }
-    
     /**
      * Gets a single User by its ID.
      * @param id The ID of the user.

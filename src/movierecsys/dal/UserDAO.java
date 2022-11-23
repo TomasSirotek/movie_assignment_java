@@ -67,6 +67,10 @@ public class UserDAO
         }
         return new User(id, name);
     }
+
+
+
+
     /**
      * Gets a single User by its ID.
      * @param id The ID of the user.
@@ -77,6 +81,8 @@ public class UserDAO
         //TODO Get User
         return null;
     }
+
+
     
     /**
      * Updates a user so the persistence storage reflects the given User object.
